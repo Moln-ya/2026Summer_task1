@@ -1,0 +1,10 @@
+.idea/
+_pycache_/
+*.pyc
+
+# dataset temporary files
+*.tmp
+
+#model weights
+*.pt
+*.pth
