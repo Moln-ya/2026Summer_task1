@@ -8,3 +8,16 @@ _pycache_/
 #model weights
 *.pt
 *.pth
+
+# ROS2
+build/
+install/
+log/
+
+#Python
+.venv/
+venv/
+*.egg-info/
+
+#OS
+.DS_Store
