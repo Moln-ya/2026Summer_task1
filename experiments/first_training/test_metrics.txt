@@ -1,0 +1,35 @@
+First YOLO11n baseline training
+Dataset:
+book / laptop / phone
+Train images: 903
+Validation images: 113
+Test images: 120
+Training:
+Model: YOLO11n
+Epochs: 100
+Image size: 640
+GPU: NVIDIA GeForce RTX 4060 Laptop GPU
+Independent test results:
+Overall:
+Precision: 0.753
+Recall: 0.684
+mAP50: 0.731
+mAP50-95: 0.575
+Book:
+Precision: 0.579
+Recall: 0.355
+mAP50: 0.422
+mAP50-95: 0.240
+Laptop:
+Precision: 0.834
+Recall: 0.929
+mAP50: 0.925
+mAP50-95: 0.792
+Phone:
+Precision: 0.847
+Recall: 0.767
+mAP50: 0.845
+mAP50-95: 0.693
+Conclusion:
+The first dataset is unsuitable for the final experiment because book detection performance is poor.
+This experiment is retained as the first baseline.

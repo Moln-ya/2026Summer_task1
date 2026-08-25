@@ -25,3 +25,8 @@ venv/
 yolo_env/
 runs/
 _pycache_/
+
+dataset/images/
+dataset/labels/
+dataset_3class/images/
+dataset_3class/labels/
