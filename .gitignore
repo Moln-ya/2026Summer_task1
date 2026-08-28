@@ -6,7 +6,6 @@ _pycache_/
 *.tmp
 
 #model weights
-*.pt
 *.pth
 
 # ROS2
@@ -30,3 +29,11 @@ dataset/images/
 dataset/labels/
 dataset_3class/images/
 dataset_3class/labels/
+
+dataset/
+dataset_*/
+runs/
+*.zip
+*.tar.gz
+_pycache_/
+.DS_Store
