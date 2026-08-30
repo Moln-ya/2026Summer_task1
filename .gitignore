@@ -37,3 +37,11 @@ runs/
 *.tar.gz
 _pycache_/
 .DS_Store
+
+#YOLO catch files
+*.cache
+
+#officialm weights
+yolo11n.pt
+yolo11s.pt
+yolov8n.pt
