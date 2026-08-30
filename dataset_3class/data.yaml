@@ -1,9 +1,0 @@
-path: /home/li/Desktop/2026Summer_task1/dataset_3class
-train: images/train
-val: images/val
-test: images/test
-nc: 3
-names:
-0: book
-1: laptop
-2: phone

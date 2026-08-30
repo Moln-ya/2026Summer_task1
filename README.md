@@ -1,48 +1,403 @@
 # 2026Summer_task1
-## ROS 2 + YOLO11n Real-Time Object Detection on Jetson
-This project implements a real-time object detection system for desktop objects using YOLO11n, NVIDIA Jetson, and ROS 2.
-The complete pipeline includes:
-- image collection
-- manual annotation and dataset review
-- YOLO11n training
-- model evaluation
-- Jetson deployment
+
+## YOLO11n + ROS 2 Real-Time Object Detection on NVIDIA Jetson
+
+This project implements a complete desktop-object detection pipeline based on YOLO11n, NVIDIA Jetson and ROS 2.
+
+The project covers:
+
+- self-collected object-detection data
+- manual annotation and annotation review
+- YOLO11n model training
+- validation and test-set evaluation
+- representative prediction-result preservation
+- typical error-case analysis
+- deployment on NVIDIA Jetson
 - real-time camera inference
-- bounding-box, class and confidence display
-- FPS measurement
+- display of bounding boxes, class names and confidence scores
+- real-time FPS calculation
 - ROS 2 detection-result publishing
-- test-result and typical-error analysis
+
 ---
-# 1. Project Task
-The objective of this experiment is to build a real-time object detection system satisfying the following requirements:
-- Detect at least two categories of desktop objects.
-- Collect and annotate the dataset manually.
-- Train an object detection model.
-- Run the trained model on Jetson.
-- Display object class, bounding box and confidence in real time.
-- Publish detection results through ROS 2.
-- Test at least 20 objects with an accuracy of at least 80%.
-- Maintain a Jetson real-time detection speed of at least 5 FPS.
-- Save model test results and representative error cases.
-The final system detects three classes:
-1. `keyboard`
-2. `nongfu_spring`
-3. `phone`
+
+# 1. Assignment Requirements
+
+The experiment requires:
+
+- selection of at least two categories of desktop objects
+- self-collection and annotation of training data
+- training of an object-detection model
+- deployment of the recognition program on Jetson
+- real-time display of:
+  - object class
+  - bounding box
+  - confidence score
+- publishing recognition results through ROS 2
+- testing at least 20 physical objects
+- physical-test accuracy of at least 80%
+- Jetson real-time detection speed of at least 5 FPS
+- preservation of test results and representative error cases
+
+The final submission contains or references:
+
+1. dataset
+2. trained model
+3. source code
+4. model test results
+5. typical error cases
+6. result video
+7. running instructions
+8. experiment report
+
 ---
-# 2. Final System Pipeline
-```text
-USB Camera
-    |
-    v
-NVIDIA Jetson
-    |
-    v
-YOLO11n
-    |
-    +-----------------------------+
-    |                             |
-    v                             v
-Bounding Box                  ROS 2 Publisher
-Class Name                        |
-Confidence                        v
-FPS                          /detections
+
+# 2. Final Object Classes
+
+The final model detects three classes:
+
+    0: keyboard
+    1: nongfu_spring
+    2: phone
+
+Therefore, the system exceeds the minimum requirement of two object categories.
+
+---
+
+# 3. Final System Pipeline
+
+The final pipeline is:
+
+    USB Camera
+         |
+         v
+    NVIDIA Jetson
+         |
+         v
+      YOLO11n
+         |
+         +-----------------------------+
+         |                             |
+         v                             v
+    Detection Display             ROS 2 Publisher
+    - Bounding box                    |
+    - Class name                      |
+    - Confidence                      v
+    - FPS                        /detections
+
+The final deployment entry point is:
+
+    ljx.py
+
+The final trained model is:
+
+    models/v2_keyboard_phone_nongfu/best11n_v5.pt
+
+---
+
+# 4. Dataset
+
+The final dataset was collected and reviewed for this project.
+
+Images contain the target objects under different:
+
+- positions
+- distances
+- orientations
+- viewing angles
+- lighting conditions
+- background conditions
+- partial occlusion conditions
+
+The annotations were manually checked and corrected before final training.
+
+The dataset follows standard YOLO object-detection format.
+
+Typical dataset structure:
+
+    dataset_final/
+    ├── train/
+    │   ├── images/
+    │   └── labels/
+    │
+    ├── valid/
+    │   ├── images/
+    │   └── labels/
+    │
+    ├── test/
+    │   ├── images/
+    │   └── labels/
+    │
+    └── data.yaml
+
+The complete final dataset is not stored directly in this Git repository because of its size.
+
+The final dataset should be submitted separately as a compressed dataset archive.
+
+---
+
+# 5. Annotation
+
+The dataset was annotated for object detection.
+
+Each YOLO detection label uses the format:
+
+    class_id x_center y_center width height
+
+All coordinates are normalized to the image width and height.
+
+The final class mapping is:
+
+    keyboard       -> 0
+    nongfu_spring  -> 1
+    phone          -> 2
+
+Annotations were reviewed before the final model was trained.
+
+---
+
+# 6. Model Selection
+
+The final model used in this project is:
+
+    YOLO11n
+
+YOLO11n was selected because it provides a suitable balance between:
+
+- detection accuracy
+- model size
+- inference speed
+- GPU resource consumption
+- Jetson deployment performance
+
+The final weight file is:
+
+    models/v2_keyboard_phone_nongfu/best11n_v5.pt
+
+---
+
+# 7. Training Environment
+
+The final model was trained using the Ultralytics YOLO framework.
+
+Main training configuration:
+
+    Model: YOLO11n
+    Image size: 640
+    Epochs: 100
+    Batch size: 16
+    Device: CUDA GPU
+    Training GPU: NVIDIA GeForce RTX 4060 Laptop GPU
+
+An equivalent Ultralytics command is:
+
+    yolo detect train model=yolo11n.pt data=/path/to/data.yaml epochs=100 imgsz=640 batch=16 device=0 workers=4 name=v5_newdata_yolo11n
+
+The project does not manually reimplement the internal YOLO training algorithm.
+
+Ultralytics YOLO is responsible for:
+
+- dataset loading
+- preprocessing
+- data augmentation
+- model forward propagation
+- loss calculation
+- backward propagation
+- optimisation
+- validation
+- checkpoint saving
+
+The project focuses on dataset construction, model selection, training configuration, evaluation, deployment and ROS 2 integration.
+
+---
+
+# 8. Training Script
+
+The repository contains a reproducible YOLO11n training script under:
+
+    scripts/
+
+The training script can be used to reproduce the model-training process when the final dataset is available.
+
+The final model generated by the experiment is:
+
+    best11n_v5.pt
+
+---
+
+# 9. Final Test-Set Results
+
+The final YOLO11n model was evaluated on the test split.
+
+Overall performance:
+
+| Metric | Result |
+|---|---:|
+| Precision | 0.957 |
+| Recall | 0.960 |
+| mAP@0.50 | 0.973 |
+| mAP@0.50:0.95 | 0.806 |
+
+Per-class performance:
+
+| Class | Precision | Recall | mAP@0.50 | mAP@0.50:0.95 |
+|---|---:|---:|---:|---:|
+| keyboard | 0.914 | 0.973 | 0.984 | 0.835 |
+| nongfu_spring | 0.971 | 1.000 | 0.994 | 0.813 |
+| phone | 0.986 | 0.906 | 0.942 | 0.771 |
+
+These results show that the final model achieves strong test-set performance across all three target classes.
+
+---
+
+# 10. Test Result Preservation
+
+Representative model-evaluation results are stored under:
+
+    experiments/v5_newdata_yolo11n/results/
+
+The preserved results include representative items such as:
+
+- prediction images with bounding boxes
+- class labels
+- confidence scores
+- confusion matrix
+- normalized confusion matrix
+- precision-recall curve
+- F1 curve
+- validation/test prediction examples
+
+The complete automatically generated Ultralytics `runs/` directory is not committed because it contains many temporary and duplicated experiment outputs.
+
+Instead, representative results required for the assignment are retained in:
+
+    experiments/v5_newdata_yolo11n/results/
+
+---
+
+# 11. Typical Error Cases
+
+Representative model failure cases are stored under:
+
+    experiments/v5_newdata_yolo11n/error_cases/
+
+These images are used to analyse situations where the model may fail or produce unstable predictions.
+
+Typical causes can include:
+
+- unusual viewing angle
+- strong reflection
+- partial occlusion
+- small object size
+- object near image boundary
+- complex background
+- confusing object appearance
+- insufficient visible object features
+
+These cases are retained as part of the experimental analysis rather than being removed from the final results.
+
+---
+
+# 12. Repository Structure
+
+The important repository structure is:
+
+    2026Summer_task1/
+    │
+    ├── README.md
+    ├── .gitignore
+    ├── ljx.py
+    │
+    ├── models/
+    │   └── v2_keyboard_phone_nongfu/
+    │       └── best11n_v5.pt
+    │
+    ├── scripts/
+    │   ├── train_yolo11n.py
+    │   ├── evaluate_yolo11n.py
+    │   └── jetson_camera_test.py
+    │
+    ├── experiments/
+    │   └── v5_newdata_yolo11n/
+    │       ├── README.md
+    │       ├── results/
+    │       └── error_cases/
+    │
+    └── src/
+        └── my_robot/
+
+The most important final deployment files are:
+
+    ljx.py
+
+and:
+
+    models/v2_keyboard_phone_nongfu/best11n_v5.pt
+
+---
+
+# 13. NVIDIA Jetson Deployment
+
+The final trained model was deployed on an NVIDIA Jetson platform.
+
+For final deployment, the Jetson is organised as:
+
+    ~/Desktop/
+    ├── ljx.py
+    │
+    └── ljx_task1/
+        └── best11n_v5.pt
+
+The final Jetson program directly uses:
+
+- Python 3
+- OpenCV
+- PyTorch
+- Ultralytics YOLO
+- ROS 2 Humble
+- rclpy
+
+A separate ROS 2 workspace is not required to execute the final deployment program.
+
+The final Python program itself creates the ROS 2 node.
+
+---
+
+# 14. Jetson Model Path
+
+The final `ljx.py` expects the model at:
+
+    ~/Desktop/ljx_task1/best11n_v5.pt
+
+Therefore, before running the final program, the Jetson should contain:
+
+    /home/nvidia/Desktop/ljx.py
+
+and:
+
+    /home/nvidia/Desktop/ljx_task1/best11n_v5.pt
+
+---
+
+# 15. Running the Final Program
+
+Open a terminal on the Jetson Ubuntu desktop.
+
+If ROS 2 Humble is already available in the current terminal, run:
+
+    cd ~/Desktop
+    python3 ljx.py
+
+If a newly opened terminal cannot find ROS 2 commands, load ROS 2 Humble first:
+
+    source /opt/ros/humble/setup.bash
+
+Then run:
+
+    cd ~/Desktop
+    python3 ljx.py
+
+No `colcon build` command is required for the final `ljx.py`.
+
+No separate `ros2_ws` workspace is required for final execution.
+
+---
