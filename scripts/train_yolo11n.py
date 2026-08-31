@@ -1,4 +1,3 @@
-cat > scripts/train_yolo11n.py <<'EOF'
 #!/usr/bin/env python3
 """
 Train YOLO11n for the 3-class object detection task.
