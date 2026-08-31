@@ -1,4 +1,3 @@
-cat > scripts/evaluate_yolo11n.py <<'EOF'
 #!/usr/bin/env python3
 """
 Evaluate the trained YOLO11n model on the test split.
